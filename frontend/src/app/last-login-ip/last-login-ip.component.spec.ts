@@ -58,17 +58,13 @@ describe('LastLoginIpComponent', () => {
   })
 
   xit('should set Last-Login IP from JWT as trusted HTML', () => { // FIXME Expected state seems to leak over from previous test case occasionally
-    // Using a mock JWT structure for testing without exposing actual token format
-    const mockJWTWithIP = 'mock.jwt.token.with.ip'
-    localStorage.setItem('token', mockJWTWithIP)
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Imxhc3RMb2dpbklwIjoiMS4yLjMuNCJ9fQ.RAkmdqwNypuOxv3SDjPO4xMKvd1CddKvDFYDBfUt3bg')
     component.ngOnInit()
     expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<small>1.2.3.4</small>')
   })
 
   xit('should not set Last-Login IP if none is present in JWT', () => { // FIXME Expected state seems to leak over from previous test case occasionally
-    // Using a mock JWT structure for testing without exposing actual token format
-    const mockJWTWithoutIP = 'mock.jwt.token.without.ip'
-    localStorage.setItem('token', mockJWTWithoutIP)
+    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7fX0.bVBhvll6IaeR3aUdoOeyR8YZe2S2DfhGAxTGfd9enLw')
     component.ngOnInit()
     expect(sanitizer.bypassSecurityTrustHtml).not.toHaveBeenCalled()
   })
